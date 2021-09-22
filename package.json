@@ -1,0 +1,23 @@
+{
+  "name": "projetointegrador21daw2",
+  "version": "1.0.0",
+  "description": "- Sistema desenvolvido para auxiliar na aprendizagem autodidata de estudantes da linguagem de programação Java Script",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://gitlab.com/ifpbesperanca/integrador2021/kahi/backend.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://gitlab.com/ifpbesperanca/integrador2021/kahi/backend/issues"
+  },
+  "homepage": "https://gitlab.com/ifpbesperanca/integrador2021/kahi/backend#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
