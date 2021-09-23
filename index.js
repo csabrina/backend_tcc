@@ -1,7 +1,7 @@
 const db = require("./db")
-//const Usuario = require("./model/Usuario");
-//const Conteudo = require("./model/Conteudo");
-//const Subtopico = require("./model/Subtopico");
+const Usuario = require("./model/Usuario");
+const Conteudo = require("./model/Conteudo");
+const Subtopico = require("./model/Subtopico");
 const Topico = require("./model/Topico");
 /*const express = require("express");
 
@@ -13,8 +13,8 @@ res.json({message:"API do projeto KAHI, FINALMENTEEEEEEE!"})
 
 app.listen(3000, ()=> {
    console.log("API executando!");
-});
-*/
+});*/
+
 async function sync() { 
   await db.sync(); //{force; true}
 }
@@ -28,7 +28,7 @@ async function conectar() {
   }
 }
 
-/*async function inserirUsuario() {
+async function inserirUsuario() {
   try {
     let usuario1 = {
       email: "bruna.sabrina@ifpb.com",
@@ -112,7 +112,7 @@ async function adicionarExercicio() {
     } catch (e) {
       console.log(e);
     }
-  }*/
+  }
 async function adicionarTopico() {
   try {
     let topico1 = {
