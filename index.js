@@ -1,8 +1,10 @@
 const db = require("./db")
 const Usuario = require("./model/Usuario");
+const Exercicio = require("./model/Exercicio");
 const Conteudo = require("./model/Conteudo");
 const Subtopico = require("./model/Subtopico");
 const Topico = require("./model/Topico");
+
 /*const express = require("express");
 
 const app = express()
@@ -13,6 +15,7 @@ res.json({message:"API do projeto KAHI, FINALMENTEEEEEEE!"})
 
 app.listen(3000, ()=> {
    console.log("API executando!");
+<<<<<<< HEAD
 });*/
 
 async function sync() { 
@@ -149,4 +152,4 @@ async function adicionarTopico() {
 //listarTopico();
 
 
-   
+
