@@ -27,7 +27,11 @@ const UsuarioExercicio = db.define("UsuarioExercicio",
     }
   },
 
+<<<<<<< HEAD
 acertou: Sequelize.BOOLEAN
+=======
+acetou: Sequelize.BOOLEAN
+>>>>>>> f5a433a1c8deb652349d62e80c785aca8d46315f
   }
 );
 
