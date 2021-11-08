@@ -1,3 +1,4 @@
+
 let Sequelize = require("sequelize");
 
 const db = require("../db");
@@ -12,18 +13,20 @@ const Usuario = db.define("Usuario",
          
         email: {
         type: Sequelize.STRING,
-        //allowNull: false
+        allowNull: false
       },
          
         username: {
-        type: Sequelize.STRING
-       // allowNull: false
+        type: Sequelize.STRING,
+        allowNull: false,
+        unique: true
       },
 
         senha: {
         type: Sequelize.STRING,
-        //allowNull: false
+        allowNull: false
       }
    }
 );
+
 module.exports = Usuario;

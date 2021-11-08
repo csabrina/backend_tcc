@@ -1,3 +1,12 @@
 {
-  "files": {}
+  "files": {
+    "routes/ExercicioRotas.js": [
+      {
+        "id": "de1ecbe7-4e5b-4c75-b589-17d4747dfbe8",
+        "line": 1,
+        "version": 5,
+        "index": 0
+      }
+    ]
+  }
 }
