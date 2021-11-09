@@ -14,11 +14,13 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
-/*
-app.get("/", (req, res) => {
+
+
+/*app.get("/", (req, res) => {
 res.json({message:"API do projeto KAHI, FINALMENTEEEEEEE!"})
-});
-*/
+});*/
+
+
 app.get("/usuario", async (req, res) => {
 let usuarios = await Usuario.findAll();
 res.json(usuarios);
@@ -278,42 +280,29 @@ res.json(topicos);
 res.status(200);
 });*/
 
-/*app.listen(3000, ()=> {
+   app.listen(3000, ()=> {
    console.log("API executando!");
-<<<<<<< HEAD
+
 });
-
-//{force; true} ({alter:true}, alteraçoes) livro.drop(); apagar determinada tabela await sequelize.drop();
-/*async function sincronizar() { 
-  await db.sync({force: true})
-}
-sincronizar();*/
-=======
-
-});*/
 
 //{force; true} {alter:true} livro.drop(); apagar determinada tabela await sequelize.drop();
 /*async function sincronizar() { 
   await db.sync({force: true})
 }
 sincronizar();
-*/
->>>>>>> f5a433a1c8deb652349d62e80c785aca8d46315f
 
-/*async function conectar() {
+
+  async function conectar() {
   try {
     await db.authenticate();
     console.log("Sucesso!");
   } catch (e) {
     console.log(e, "Falhou!");
   }
-}*/
+  };*/
 
-<<<<<<< HEAD
- async function inserirUsuario() {
-=======
  /* async function inserirUsuario() {
->>>>>>> f5a433a1c8deb652349d62e80c785aca8d46315f
+
   try {
     let usuario1 = {
       email: "teste@gmail.com",
@@ -325,24 +314,20 @@ sincronizar();
   } catch (e) {
     console.log(e, "Falhou!")
   }
-<<<<<<< HEAD
+
  }
 
-  async function listarUsuarios() {
-=======
- }*/
+    async function listarUsuarios() {
 
-  /*async function listarUsuarios() {
->>>>>>> f5a433a1c8deb652349d62e80c785aca8d46315f
     try {
       let usuarios = await Usuario.findAll();
       console.log(usuarios);
     } catch (e) {
       console.log(e);
     }
-  }*/
+  }
 
-/*async function adicionarConteudo() {
+  async function adicionarConteudo() {
   try {
     let conteudo1 = {
       nome_conteudo: "declarando variaveis",
@@ -355,17 +340,18 @@ sincronizar();
   } catch (e) {
     console.log(e, "Falhou!")
   }
-}*/
-/*async function listarConteudo() {
+};
+
+    async function listarConteudo() {
     try {
       let conteudos = await Conteudo.findAll();
       console.log(conteudos);
     } catch (e) {
       console.log(e);
     }
-}*/
+};
 
-/*async function adicionarExercicio() {
+  async function adicionarExercicio() {
   try {
     let exercicio1 = {
       numeroDoExercicio: "5",
@@ -377,23 +363,19 @@ sincronizar();
   } catch (e) {
     console.log(e, "Falhou!")
   }
-}*/
-  /*async function listarExercicio() {
+};
+    async function listarExercicio() {
     try {
       let exercicios = await Exercicio.findAll();
       console.log(exercicios);
     } catch (e) {
       console.log(e);
     }
-<<<<<<< HEAD
-  }
 
-async function adicionarTopico() {
-=======
-  }*/
+  };
 
-/*async function adicionarTopico() {
->>>>>>> f5a433a1c8deb652349d62e80c785aca8d46315f
+  async function adicionarTopico() {
+
   try {
     let topico1 = {
       nome_topico: "Conceitos básicos",
@@ -404,27 +386,20 @@ async function adicionarTopico() {
   } catch (e) {
     console.log(e, "Falhou!")
   }
-<<<<<<< HEAD
-}
 
-=======
-}*/
-/*
->>>>>>> f5a433a1c8deb652349d62e80c785aca8d46315f
+};
+
   async function listarTopico() {
     try {
       let topicos = await Topico.findAll();
       console.log(topicos);
     } catch (e) {
       console.log(e);
+
+
     }
-  }*/
+  };*/
 
-
-<<<<<<< HEAD
-
-=======
->>>>>>> f5a433a1c8deb652349d62e80c785aca8d46315f
 //conectar();
 //inserirUsuario();
 //sync();
@@ -436,28 +411,18 @@ async function adicionarTopico() {
 //adicionarTopico();
 //listarTopico();
 
-
-<<<<<<< HEAD
-/*consultas funcionando!!
-
-=======
 //consultas funcionando!!
-/*
->>>>>>> f5a433a1c8deb652349d62e80c785aca8d46315f
-const{Op} = require("sequelize");
+
+
+/*const{Op} = require("sequelize");
 
 async function buscarTopico() {
   let topico = await Topico.findByPk(1);
 console.log(topico);
 }
+
 buscarTopico();
-<<<<<<< HEAD
 
-
-=======
-*/
-/*
->>>>>>> f5a433a1c8deb652349d62e80c785aca8d46315f
 const{Op} = require("sequelize");
 
 async function buscarUsuario() {
@@ -470,8 +435,8 @@ async function buscarUsuario() {
 });
 console.log(usuario);
 }
-buscarUsuario();
 
+buscarUsuario();
 
 const{Op} = require("sequelize");
 
@@ -487,7 +452,6 @@ console.log(usuarios1);
 }
 retornarUsuarios();
 
- 
 const{Op} = require("sequelize");
 
 async function topicoEmQue() {
@@ -495,7 +459,7 @@ async function topicoEmQue() {
   where: {
    num_topico: '1'
   }
-})
+});
 console.log(numerodotopico);
 }
 topicoEmQue();
@@ -512,7 +476,6 @@ console.log(username1);
 }
 buscarUsername();
 
-
 const{Op} = require("sequelize");
 
 async function usuarioEsp() {
@@ -520,7 +483,6 @@ async function usuarioEsp() {
 console.log(usuario);
 }
 usuarioEsp();
-
 
 const{Op} = require("sequelize");
 
@@ -533,7 +495,6 @@ async function topicofiltrar() {
 console.log(topico);
 }
 topicofiltrar();
-
 
 const{Op} = require("sequelize");
 
@@ -549,7 +510,6 @@ async function usuarioFiltrar() {
 }
 usuarioFiltrar();
 
-
 const{Op} = require("sequelize");
 
 async function buscarConteudo() {
@@ -562,10 +522,7 @@ async function buscarConteudo() {
   });
   console.log(conteudo);  
 }
-
 buscarConteudo();
-
-
 
 const{Op} = require("sequelize");
 
@@ -579,8 +536,8 @@ async function filtrarConteudo() {
   });
   console.log(filconteudos);  
 }
-
 filtrarConteudo();*/
+
 
 
 
