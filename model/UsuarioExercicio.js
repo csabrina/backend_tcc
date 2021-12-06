@@ -30,7 +30,6 @@ const UsuarioExercicio = db.define("UsuarioExercicio",
 
 acertou: Sequelize.BOOLEAN
 
-acetou: Sequelize.BOOLEAN
 
   }
 );

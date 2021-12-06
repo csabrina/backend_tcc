@@ -1,8 +1,14 @@
 const db = require("./db");
+
+const bcryptjs = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const authorization = require("./authorization.js"); 
 const Usuario = require("./model/Usuario");
 const Exercicio = require("./model/Exercicio");
 const Conteudo = require("./model/Conteudo");
 const Topico = require("./model/Topico");
+
+
 
 const express = require("express");
 
@@ -14,33 +20,69 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+//app.use(authorization);
 
 
-/*app.get("/", (req, res) => {
+app.get("/", (req, res) => {
 res.json({message:"API do projeto KAHI, FINALMENTEEEEEEE!"})
-});*/
+});
 
+/*Route("/usuario", app, new Service(Usuario), authorization);
+Route("/cadastrar", app, new Service(Usuario));
+Route("/autenticar", app, new Service(Usuario));
+Route("/conteudo", app, new Service(Conteudo), authorization);
+Route("/exercicio", app, new Service(Exercicio), authorization);
+Route("/topico", app, new Service(Topico), authorization);
+Route("/usuarioexercicio", app, new Service(UsuarioExercicio), authorization);*/
 
+app.use("/usuario",authorization);
+
+//listar
 app.get("/usuario", async (req, res) => {
 let usuarios = await Usuario.findAll();
 res.json(usuarios);
 res.status(200);
 });
 
+//buscar por id
 app.get("/usuario/:id", async (req, res) => {
 const usuarios = await Usuario.findByPk(req.params.id);
 res.json(usuarios);
 res.status(200);
 });
 
-app.post("/usuario", async (req, res) => {
+async function gerarHash(senha) {
+  return await bcryptjs.hash(senha, 10)
+}
+
+//cadastrar usuario
+app.post("/cadastrar", async (req, res) => {
   console.log("Entrou no post");
   try {
-    const usuarios = await Usuario.create(req.body);
+    const {email, username, senha} = req.body;
+    const usuarios = await Usuario.create({email, username, senha:( await gerarHash(senha))});
+    usuarios.senha = undefined;
     res.status(200).send("Cadastrado com sucesso!");
 } catch(e) {
   res.status(403).send("Já existe.");
 }
+});
+
+app.post("/autenticar", async (req, res) => {
+  const {email, username, senha} = req.body;
+  const usuarios = await Usuario.findOne({where:{email}}); //!usuarios verifica se é undefined
+  if(!usuarios || !senha) {
+     res.status(400).send("Credenciais inválidas");
+  } else if(bcryptjs.compareSync(senha, usuarios.senha)){
+    const token = jwt.sign(
+      {email},
+      process.env.SECRET,
+      {expiresIn:3600}
+    );
+   res.send({email, token});
+  } else {
+    res.status(400).send("Credenciais inválidas");
+  }
 });
 
 app.put("/usuario", async (req, res) => {
@@ -301,7 +343,7 @@ sincronizar();
   }
   };*/
 
- /* async function inserirUsuario() {
+  async function inserirUsuario() {
 
   try {
     let usuario1 = {
@@ -398,7 +440,7 @@ sincronizar();
 
 
     }
-  };*/
+  };
 
 //conectar();
 //inserirUsuario();
