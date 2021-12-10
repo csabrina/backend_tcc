@@ -2,9 +2,9 @@ let Sequelize = require("sequelize");
 
 const db = require("../db");
 
-const Usuario = require("./model/Usuario");
+const Usuario = require("./Usuario");
 
-const Exercicio = require("./model/Exercicio");
+const Exercicio = require("./Exercicio");
 
 const UsuarioExercicio = db.define("UsuarioExercicio",
 
@@ -30,7 +30,6 @@ const UsuarioExercicio = db.define("UsuarioExercicio",
 
 acertou: Sequelize.BOOLEAN
 
-acetou: Sequelize.BOOLEAN
 
   }
 );

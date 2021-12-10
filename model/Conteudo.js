@@ -20,11 +20,6 @@ const Conteudo = db.define("Conteudo",
         type: Sequelize.STRING
         
       },
-         
-        curiosidade: {
-        type: Sequelize.STRING,
-      
-      },
 
         instrucoes: {
         type: Sequelize.STRING,

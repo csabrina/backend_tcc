@@ -1,8 +1,15 @@
+require('dotenv').config();
 const db = require("./db");
+const Route = require("./routes/RouteGeneric");
+const bcryptjs = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+const authorization = require("./authorization.js"); 
 const Usuario = require("./model/Usuario");
 const Exercicio = require("./model/Exercicio");
 const Conteudo = require("./model/Conteudo");
 const Topico = require("./model/Topico");
+const UsuarioExercicio = require("./model/UsuarioExercicio");
+const Controller = require("./controller/ControllerGeneric.js");
 
 const express = require("express");
 
@@ -14,273 +21,22 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
+//app.use(authorization);
 
 
-/*app.get("/", (req, res) => {
+app.get("/", (req, res) => {
 res.json({message:"API do projeto KAHI, FINALMENTEEEEEEE!"})
-});*/
-
-
-app.get("/usuario", async (req, res) => {
-let usuarios = await Usuario.findAll();
-res.json(usuarios);
-res.status(200);
 });
 
-app.get("/usuario/:id", async (req, res) => {
-const usuarios = await Usuario.findByPk(req.params.id);
-res.json(usuarios);
-res.status(200);
-});
+Route("/usuario", app, new Controller(Usuario), authorization);
+Route("/conteudo", app, new Controller(Conteudo), authorization);
+Route("/exercicio", app, new Controller(Exercicio), authorization);
+Route("/topico", app, new Controller(Topico), authorization);
+Route("/usuarioexercicio", app, new Controller(UsuarioExercicio), authorization);
 
-app.post("/usuario", async (req, res) => {
-  console.log("Entrou no post");
-  try {
-    const usuarios = await Usuario.create(req.body);
-    res.status(200).send("Cadastrado com sucesso!");
-} catch(e) {
-  res.status(403).send("Já existe.");
-}
-});
-
-app.put("/usuario", async (req, res) => {
-  console.log("Entrou no put");
-  try {
-    const usuarios = await Usuario.findByPk(req.body.id);
-    usuarios.update(req.body);
-    res.status(200).send("Atualizado com sucesso!");
-} catch(e) {
-  res.status(403).send("Já existe.");
-}
-});
-
-app.delete("/usuario/:id", async (req, res) => {
-  console.log("Entrou no delete");
-  try {
-    const usuario = await Usuario.findByPk(req.params.id);
-    if(usuario) {
-    await usuario.destroy();
-    res.status(200).send("Removido com sucesso!");
-}else {
-  res.status(400).send("Não encontrado!")
-}
-} catch(e) {
-  res.status(400).send(e);
-}
-});
-
-app.get("/conteudo", async (req, res) => {
-let conteudos = await Conteudo.findAll();
-res.json(conteudos);
-res.status(200);
-});
-
-app.get("/conteudo/:id", async (req, res) => {
-const conteudos = await Conteudo.findByPk(req.params.id);
-res.json(conteudos);
-res.status(200);
-});
-
-app.post("/conteudo", async (req, res) => {
-  console.log("Entrou no post");
-  try {
-    const conteudos = await Conteudo.create(req.body);
-    res.status(200).send("Cadastrado com sucesso!");
-} catch(e) {
-  res.status(403).send("Já existe.");
-}
-});
-
-app.put("/conteudo", async (req, res) => {
-  console.log("Entrou no put");
-  try {
-    const conteudos = await Conteudo.findByPk(req.body.id);
-    conteudos.update(req.body);
-    res.status(200).send("Atualizado com sucesso!");
-} catch(e) {
-  res.status(403).send("Já existe.");
-}
-});
-
-app.delete("/conteudo/:id", async (req, res) => {
-  console.log("Entrou no delete");
-  try {
-    const conteudos = await Conteudo.findByPk(req.params.id);
-    if(conteudos) {
-    await conteudos.destroy();
-    res.status(200).send("Removido com sucesso!");
-}else {
-  res.status(400).send("Não encontrado!")
-}
-} catch(e) {
-  res.status(400).send(e);
-}
-});
-
-app.get("/exercicio", async (req, res) => {
-let exercicios = await Exercicio.findAll();
-res.json(exercicios);
-res.status(200);
-});
-
-app.get("/exercicio/:id", async (req, res) => {
-const exercicios = await Exercicio.findByPk(req.params.id);
-res.json(exercicios);
-res.status(200);
-});
-
-app.post("/exercicio", async (req, res) => {
-  console.log("Entrou no post");
-  try {
-    const exercicios = await Exercicio.create(req.body);
-    res.status(200).send("Cadastrado com sucesso!");
-} catch(e) {
-  res.status(403).send("Já existe.");
-}
-});
-
-app.put("/exercicio", async (req, res) => {
-  console.log("Entrou no put");
-  try {
-    const exercicios = await Exercicio.findByPk(req.body.id);
-    exercicios.update(req.body);
-    res.status(200).send("Atualizado com sucesso!");
-} catch(e) {
-  res.status(403).send("Já existe.");
-}
-});
-
-app.delete("/exercicio/:id", async (req, res) => {
-  console.log("Entrou no delete");
-  try {
-    const exercicios= await Exercicio.findByPk(req.params.id);
-    if(exercicios) {
-    await exercicios.destroy();
-    res.status(200).send("Removido com sucesso!");
-}else {
-  res.status(400).send("Não encontrado!")
-}
-} catch(e) {
-  res.status(400).send(e);
-}
-});
-app.get("/topico", async (req, res) => {
-let topicos = await Topico.findAll();
-res.json(topicos);
-res.status(200);
-});
-
-app.get("/topico/:id", async (req, res) => {
-const topicos = await Topico.findByPk(req.params.id);
-res.json(topicos);
-res.status(200);
-});
-
-app.post("/topico", async (req, res) => {
-  console.log("Entrou no post");
-  try {
-    const topicos = await Topico.create(req.body);
-    res.status(200).send("Cadastrado com sucesso!");
-} catch(e) {
-  res.status(403).send("Já existe.");
-}
-});
-
-app.put("/topico", async (req, res) => {
-  console.log("Entrou no put");
-  try {
-    const topicos = await Topico.findByPk(req.body.id);
-    topicos.update(req.body);
-    res.status(200).send("Atualizado com sucesso!");
-} catch(e) {
-  res.status(403).send("Já existe.");
-}
-});
-
-app.delete("/topico/:id", async (req, res) => {
-  console.log("Entrou no delete");
-  try {
-    const topicos= await Topico.findByPk(req.params.id);
-    if(topicos) {
-    await topicos.destroy();
-    res.status(200).send("Removido com sucesso!");
-}else {
-  res.status(400).send("Não encontrado!")
-}
-} catch(e) {
-  res.status(400).send(e);
-}
-});
-
-
-app.get("/usuarioexercicio", async (req, res) => {
-let usuarioexercicios = await UsuarioExercicio.findAll();
-res.json(usuarioexercicios);
-res.status(200);
-});
-
-app.get("/usuarioexercicio/:id", async (req, res) => {
-const usuarioexercicios = await UsuarioExercicio.findByPk(req.params.id);
-res.json(usuarioexercicios);
-res.status(200);
-});
-
-app.post("/usuarioexercicio", async (req, res) => {
-  console.log("Entrou no post");
-  try {
-    const usuarioexercicios = await UsuarioExercicio.create(req.body);
-    res.status(200).send("Cadastrado com sucesso!");
-} catch(e) {
-  res.status(403).send("Já existe.");
-}
-});
-
-app.put("/usuarioexercicio", async (req, res) => {
-  console.log("Entrou no put");
-  try {
-    const usuarioexercicios = await UsuarioExercicio.findByPk(req.body.id);
-    usuarioexercicios.update(req.body);
-    res.status(200).send("Atualizado com sucesso!");
-} catch(e) {
-  res.status(403).send("Já existe.");
-}
-});
-
-app.delete("/usuarioexercicio/:id", async (req, res) => {
-  console.log("Entrou no delete");
-  try {
-    const usuarioexercicios= await UsuarioExercicio.findByPk(req.params.id);
-    if(usuarioexercicios) {
-    await usuarioexercicios.destroy();
-    res.status(200).send("Removido com sucesso!");
-}else {
-  res.status(400).send("Não encontrado!")
-}
-} catch(e) {
-  res.status(400).send(e);
-}
-});
-
-
-/*app.get("/exercicio", async (req, res) => {
-let exercicios = await Exercicio.findAll();
-res.json(exercicios);
-res.status(200);
-});
-
-app.get("/conteudo", async (req, res) => {
-let conteudos = await Exercicio.findAll();
-res.json(conteudos);
-res.status(200);
-});
-
-app.get("/topico", async (req, res) => {
-let topicos = await Topico.findAll();
-res.json(topicos);
-res.status(200);
-});*/
-
-   app.listen(3000, ()=> {
+app.use("/usuario",authorization);
+  
+  app.listen(3000, ()=> {
    console.log("API executando!");
 
 });
@@ -301,7 +57,7 @@ sincronizar();
   }
   };*/
 
- /* async function inserirUsuario() {
+  async function inserirUsuario() {
 
   try {
     let usuario1 = {
@@ -398,7 +154,7 @@ sincronizar();
 
 
     }
-  };*/
+  };
 
 //conectar();
 //inserirUsuario();

@@ -1,5 +1,13 @@
 {
   "files": {
+    "model/uri": [
+      {
+        "id": "e46d8cb1-0dac-44d1-b248-c5a26120437e",
+        "line": 1,
+        "version": 7,
+        "index": 0
+      }
+    ],
     "routes/ExercicioRotas.js": [
       {
         "id": "de1ecbe7-4e5b-4c75-b589-17d4747dfbe8",
