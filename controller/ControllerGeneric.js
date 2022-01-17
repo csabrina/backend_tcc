@@ -3,7 +3,7 @@ const { validContent, validResult, treatError } = require('../util/util');
 class ControllerGeneric {
   constructor(model) {
     this.model = model;
-    this.create = this.create.bind(this); //fixar o this, todas as pessoas q chamarem o this teram o do objeto criado, em arrow funcion o this vai ser proveniente do contexto de criaçao da funçao (utiliza-se arrow funtion para fugir do bind), bind automatico na aroow function, é legal para n acabar escrevendo um cod sem bind e gerar bug
+    this.create = this.create.bind(this); 
     this.all = this.all.bind(this);
     this.get = this.get.bind(this);
     this.update = this.update.bind(this);

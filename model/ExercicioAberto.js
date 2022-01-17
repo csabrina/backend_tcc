@@ -2,7 +2,7 @@
 let Sequelize = require("sequelize");
 
 const db = require("../db");
-const Exercicio = db.define("Exercicio")
+const Exercicio = db.define("Exercicio");
 const ExercicioAberto = db.define("Exercicio",
     {
       
@@ -26,6 +26,8 @@ const ExercicioAberto = db.define("Exercicio",
 
       tipo: Sequelize.BOOLEAN
     });
-      ExercicioAberto.belongsToMany(Exercicio, {through:"ExercicioAbertoExercicio", as:'exercicios'});Exercicio.belongsToMany(ExercicioAberto, {through:"ExercicioAbertoExercicio", as: 'exercicioabertos'})
+
+ExercicioAberto.belongsToMany(Exercicio, {through:"ExercicioAbertoExercicio", as:'exercicios'});
+Exercicio.belongsToMany(ExercicioAberto, {through:"ExercicioAbertoExercicio", as: 'exercicioabertos'});
 
 module.exports = ExercicioAberto;
